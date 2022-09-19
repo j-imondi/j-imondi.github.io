@@ -1,4 +1,11 @@
 
+body {background-image= Live Streaming.jpg;
+                    position: absolute;
+                    width: 800px;
+                    height: 600;
+                    top: 10px;
+                    left: 10px;
+                    z-index: 1;}
 
 
 #joe-img {position: absolute;
