@@ -7,54 +7,63 @@
           <style> 
                body {background-image: img id="background-img" src="background.jpg" alt="background image";
                     background-color: #E0FFFF;}
-                    
+                 
+               #banner {position: absolute;
+                    z-index: 2;}
                
                #nav-table {width; 800px;
                top: 310px;}
                
                #nav-id {width: 175px;
-                    text-align: center;}
+                    text-align: center;
+                    z-index: 3;}
                
                #about-pg {position: relative;
                     background-color: #E0FFFF;
-                    width: 800px;}    
+                    width: 800px;
+                    z-index: 5;}    
                
                #hockey-img {float: left;
                     width: 200px;
                     height: 200px;
                     left: 10px;
-                    margin-bottom: 10px;}
+                    margin-bottom: 10px;
+                    z-index: 6;}
                
                #cloud-img {float: right;
                     width: 200px;
                     height: 200px;
                     right: 10px;
-                    margin-bottom: 10px;}
+                    margin-bottom: 10px;
+                    z-index: 6;}
                
                #ramp-img {float: right;
                     width: 200px;
                     height: 200px;
                     right: 225px;
-                    margin-bottom: 10px;} 
+                    margin-bottom: 10px;
+                    z-index: 6;} 
                
                #friends-img {float: right;
                     width: 200px;
                     height: 200px;
                     right: 350px;
-                    margin-bottom: 10px;}
+                    margin-bottom: 10px;
+                    z-index: 6;}
                     
                #background-img {position: absolute;
                     width: 800px;
                     height: 1024px;
                     top: 10px;
                     left: 10px;
-                    z-index: 1;
+                    z-index: 1;}
+                
                     
           </style>
           
       </head>
      
-      <img src="myBanner2.jpg" alt="Joe Imondi's CSC 106 Portfolio">
+      <img id="banner" src="myBanner2.jpg" alt="Joe Imondi's CSC 106 Portfolio">
       
       <table id="nav-table>
           <thead>
