@@ -1,0 +1,319 @@
+// variables used
+var x = 0;
+var y = 0;
+var score = 0;
+var direction = 0;
+var currentScene = 0;
+var starNumber = 1000;
+var xPos = [];
+var yPos = [];
+var starCol = [];
+var starSpeed = [];
+var asteroids = [];
+
+// code to make my bitmoji
+var drawBitmoji = function(bitmojix, bitmojiy, bitmojiHeight){
+    noStroke();
+    fill(255, 227, 196); // skin tone
+    ellipse(bitmojix, bitmojiy, 85 * bitmojiHeight / 150, 100 * bitmojiHeight / 150); //         head
+    fill(255, 255, 255);
+    arc(bitmojix + (bitmojiHeight / 150 * 17), bitmojiy + (bitmojiHeight / 150 * 106),
+    bitmojiHeight / 150 * 212, bitmojiHeight / 150 *- 263, 125, 177); // left cheek
+    arc(bitmojix - (bitmojiHeight / 150 * 20), bitmojiy + (bitmojiHeight / 150 * 108),           bitmojiHeight / 150 * 212, bitmojiHeight/150 *- 263, 8, 53); // right cheek
+    fill(255, 255, 255); // white of eyes
+    ellipse(bitmojix - (bitmojiHeight / 150 * 15), bitmojiy - (bitmojiHeight / 150 * 11),        bitmojiHeight / 150 * 17, bitmojiHeight / 150 * 20); // left outside eye
+    ellipse(bitmojix + (bitmojiHeight/150 * 15), bitmojiy-(bitmojiHeight / 150 * 11),            bitmojiHeight / 150 * 17, bitmojiHeight / 150 * 20); // right outside eye
+    fill(100, 102, 3); // eye color
+    ellipse(bitmojix - (bitmojiHeight / 150 * 15), bitmojiy-(bitmojiHeight / 150 * 11),          bitmojiHeight / 150 * 9, bitmojiHeight / 150 * 12); // left eye
+    ellipse(bitmojix + (bitmojiHeight / 150 * 15), bitmojiy - (bitmojiHeight / 150 * 11),        bitmojiHeight / 150 * 9, bitmojiHeight / 150 * 12); // right eye
+    fill(0, 0, 0); // pupil color
+    ellipse(bitmojix - (bitmojiHeight / 150 * 15), bitmojiy - (bitmojiHeight / 150 * 11),        bitmojiHeight / 150 * 5, bitmojiHeight / 150 * 7); // left pupil
+    ellipse(bitmojix + (bitmojiHeight / 150 * 15), bitmojiy - (bitmojiHeight / 150 * 11),        bitmojiHeight / 150 * 5, bitmojiHeight / 150 * 7); // right pupil
+    fill(61, 43, 31); // eye brow color
+    quad(bitmojix + (bitmojiHeight / 150 * 6), bitmojiy - (bitmojiHeight / 150 * 20),            bitmojix + (bitmojiHeight / 150 * 34), bitmojiy - (bitmojiHeight / 150 * 24), bitmojix +     (bitmojiHeight / 150 * 16), bitmojiy - (bitmojiHeight / 150 * 26), bitmojix + 
+    (bitmojiHeight / 150 * 5), bitmojiy - (bitmojiHeight / 150 * 21)); // right brow
+    quad(bitmojix - (bitmojiHeight / 150 * 16), bitmojiy - (bitmojiHeight / 150 * 26),           bitmojix - (bitmojiHeight / 150 * 34), bitmojiy - (bitmojiHeight/150 * 24), bitmojix -       (bitmojiHeight / 150 * 30), bitmojiy - (bitmojiHeight / 150 * 23), bitmojix - 
+    (bitmojiHeight / 150 * 5), bitmojiy - (bitmojiHeight / 150 * 20)); // left brow
+    fill(250, 199, 147); // nose color
+    bezier(bitmojix - (bitmojiHeight / 150 * 2), bitmojiy - (bitmojiHeight / 150 * 9),           bitmojix - (bitmojiHeight / 150 * 7), bitmojiy - (bitmojiHeight / 150 * 10), bitmojix +      (bitmojiHeight / 150 * 38), bitmojiy + (bitmojiHeight / 150 * 20), bitmojix - 
+    (bitmojiHeight / 150 * 2), bitmojiy + (bitmojiHeight/150*14)); // nose
+    fill(0, 0, 0); // back mouth color
+    arc(bitmojix + (bitmojiHeight / 150 * 3), bitmojiy + (bitmojiHeight / 150 * 22),             bitmojiHeight / 150 * 33, bitmojiHeight / 150 * 38, 0, 179); // back mouth
+    fill(255, 255, 255); // white teeth color
+    arc(bitmojix+(bitmojiHeight / 150 * 3), bitmojiy+(bitmojiHeight / 150 * 24), 
+    bitmojiHeight / 150 * 30, bitmojiHeight / 150 * 31, 0, 179); //white teeth
+    fill(0, 0, 0); // Teeth sep color
+    rect(bitmojix - (bitmojiHeight/150 * 11), bitmojiy + (bitmojiHeight / 150 * 30),             bitmojiHeight / 150 * 28, bitmojiHeight / 150 * 2); // horizontal teeth sep
+    rect(bitmojix - (bitmojiHeight / 150 * 7), bitmojiy + (bitmojiHeight / 150 * 23),            bitmojiHeight / 150 * 2, bitmojiHeight / 150 * 15); // vert teeth sepR
+    rect(bitmojix + (bitmojiHeight / 150 * 11), bitmojiy + (bitmojiHeight / 150 * 23),           bitmojiHeight / 150 * 2, bitmojiHeight / 150 * 15); // vert teeth sepL
+    rect(bitmojix + (bitmojiHeight / 150 * 2), bitmojiy + (bitmojiHeight / 150 * 24),            bitmojiHeight / 150 * 2     , bitmojiHeight / 150 * 17); // vert teeth sep MID
+    fill(61, 43, 31); // hair color
+    quad(bitmojix - (bitmojiHeight / 150 * 37), bitmojiy-(bitmojiHeight / 150 * 21), bitmojix     - (bitmojiHeight / 150 * 40), bitmojiy + (bitmojiHeight / 150 * 7), bitmojix - 
+    (bitmojiHeight / 150 * 47), bitmojiy - (bitmojiHeight / 150 * 32), bitmojix - 
+    (bitmojiHeight / 150 * 19), bitmojiy - (bitmojiHeight / 150 * 43)); // left hair
+    quad(bitmojix + (bitmojiHeight / 150 * 49), bitmojiy - (bitmojiHeight / 150 * 40),           bitmojix + (bitmojiHeight / 150 * 42), bitmojiy + (bitmojiHeight / 150 * 11), bitmojix +     (bitmojiHeight / 150 * 39), bitmojiy - (bitmojiHeight / 150 * 17), bitmojix + 
+    (bitmojiHeight / 150 * 18), bitmojiy - (bitmojiHeight / 150 * 49)); // right hair
+    fill(28, 78, 110); // hat color
+    arc(bitmojix, bitmojiy - (bitmojiHeight / 150 * 36), bitmojiHeight / 150 * 97, 
+    bitmojiHeight / 150 * 121, 179, 363); // hat
+    fill(166, 143, 111); // hat rim color
+    ellipse(bitmojix, bitmojiy - (bitmojiHeight / 150 * 36), bitmojiHeight / 150 * 121,          bitmojiHeight / 150 * 18); // hat rim
+    fill(0, 0, 0); // body color
+    ellipse(bitmojix + (bitmojiHeight / 150), bitmojiy+(bitmojiHeight / 150 * 102), 
+    bitmojiHeight / 150 * 92, bitmojiHeight / 150 * 75); // body
+    rect(bitmojix - (bitmojiHeight / 150 * 46), bitmojiy+(bitmojiHeight / 150 * 104),            bitmojiHeight / 150 * 92, bitmojiHeight / 150 * 36);
+    ellipse(bitmojix - (bitmojiHeight / 150 * 30), bitmojiy+(bitmojiHeight / 150 * 61),          bitmojiHeight / 150 * 72, bitmojiHeight / 150 * 31); // left hood
+    ellipse(bitmojix + (bitmojiHeight/150 * 30), bitmojiy + (bitmojiHeight / 150 * 61),          bitmojiHeight / 150 * 72, bitmojiHeight / 150 * 31); // right hood
+    arc(bitmojix - (bitmojiHeight / 150 * 50), bitmojiy + (bitmojiHeight/150 * 141),             bitmojiHeight / 150 * 49, bitmojiHeight / 150 * 117, 181, 311);
+    arc(bitmojix + (bitmojiHeight / 150 * 50), bitmojiy + (bitmojiHeight / 150 * 141),           bitmojiHeight / 150 * 49, bitmojiHeight / 150 * 117, 229, 360);
+    fill(255, 255, 255); // initials color
+    textSize(bitmojiHeight / 150 * 30); 
+    text("JMI", bitmojix - (bitmojiHeight / 150 * 4), bitmojiy + (bitmojiHeight / 150 * 100     )); // initials
+};
+
+// set x and y
+var Bitmoji = function(x, y){
+    this.x = x;
+    this.y = y;
+};
+
+// draw method with constraints
+Bitmoji.prototype.draw = function(){
+    this.y = constrain(this.y, 1, height - 112);
+    this.x = constrain(this.x, - 40, width - 90);
+    drawBitmoji(this.x + 65,this.y + 50, 50);
+};
+
+// method to make bitmoji grab the asteroids and raise the score
+Bitmoji.prototype.checkForStickGrab = function(asteroid){
+    if ((asteroid.x >= this.x && asteroid.x <= (this.x + 122)) &&
+        (asteroid.y >= this.y + 12 && asteroid.y <= (this.y + 82))) {
+        asteroid.y = -401;
+        score++;
+        }
+    if (asteroid.y === 400 && asteroid.x >= -5 && asteroid.x <= 400){
+        score--;
+        }
+};
+
+// adds a bitmoji variable
+var bitmoji = new Bitmoji(10, 390);
+
+// makes the background stars
+for (var s = 0; s < starNumber; s++){
+    yPos.push (round(random(0, 400)));
+    xPos.push (round(random(400, 0)));
+    starSpeed.push (round(random(1, 0)));
+    starCol.push (color(255, 255, 255));
+}
+
+// x and y for asteriods size
+var Asteroid = function(x, y){
+    this.x = x;
+    this.y = y;
+    };
+    
+// draw method for asteroids
+Asteroid.prototype.draw = function(){
+    stroke(255, 0, 0);
+    fill(252, 179, 42);
+    ellipse(this.x, this.y, 30, 30);
+    
+// position of asteriods
+        if ( this.y > 400) {
+            this.y = -60;
+            this.x = random(-500, 2001);
+        }
+};
+
+// spawns asteriods
+for (var i = 0; i < 20; i++){ 
+    asteroids.push(new Asteroid(i * -1000 - 400, random(0, 400)));
+    }
+
+// button config function
+var Button = function(config){
+    this.x = config.x || 0;
+    this.y = config.y || 0;
+    this.width = config.width || 131;
+    this.height = config.height || 49;
+    this.onClick = config.onClick || function() {};
+    this.label = config.label || "ClickHere";
+
+};
+
+// button draw method
+Button.prototype.draw = function() {
+    stroke(26, 255, 0);
+    fill(194, 46, 247);
+    rect(this.x, this.y, this.width, this.height, 12);
+    fill(0, 0, 0);
+    textSize(21);
+    textAlign(CENTER,TOP);
+    text(this.label, this.x + 67, this.y+this.height / 4);
+};
+
+// button mouse deadzones
+Button.prototype.isMouseInside = function(){
+    return mouseX > this.x &&
+           mouseX < (this.x + this.width) &&
+           mouseY > this.y &&
+           mouseY < (this.y + this.height);
+};
+
+// method to create an action when button is clicked
+Button.prototype.handleMouseClick = function(){
+    if (this.isMouseInside()) {
+        this.onClick();
+    }
+};
+
+// start button code
+var strtButton = new Button({
+    x: 135,
+    y: 280,
+    label: "Start Game",
+    onClick: function(){
+    currentScene = 1;
+    }
+});
+
+// pause button code
+var pauseButton = new Button({
+    x: 250,
+    y: 10,
+    label: "Pause",
+    onClick: function(){
+    currentScene = 2;
+    }
+});
+
+// resume Button
+var resButton = new Button({
+    x: 150,
+    y: 150,
+    label: "Resume",
+    onClick: function(){
+    currentScene = 1;
+    }
+});
+
+// start scene function
+var startScene = function(){
+    currentScene = 0;
+    background(28, 20, 51);
+// makes stars
+    for (var a = 0; a < yPos.length; a++){
+            noStroke();
+            fill(252, 252, 252);
+            ellipse(xPos[a], yPos[a], 3, 3);
+            yPos[a] += starSpeed[a];
+            
+            if(xPos[a] > 400){
+            xPos[a] = 0;
+            }
+            if (yPos[a] > 400){
+            yPos[a] = 0;
+            starSpeed[a] = round(random(1,2));
+            }
+    }
+// makes banner
+    fill(194, 46, 247);
+    stroke(26, 255, 0);
+    rect(40, 45, 319, 56,20);
+    textSize(40);
+    fill(0, 0, 0);
+    text("Asteroid Collector", 200, 50);
+    drawBitmoji(200, 200, 90);
+    strtButton.draw();
+};
+
+// function for the playing scene
+var gameScene = function(){
+    currentScene = 1;
+    background(28, 20, 51);
+// makes stars
+    for (var a = 0; a < yPos.length; a++){
+            noStroke();
+            fill(252, 252, 252);
+            ellipse(xPos[a], yPos[a], 3, 3);
+            yPos[a] += starSpeed[a];
+            
+            if(xPos[a] > 400){
+            xPos[a] = 0;
+            }
+            if (yPos[a] > 400){
+            yPos[a] = 0;
+            starSpeed[a] = round(random(1,2));
+            }
+    }
+// makes asteroids/speed
+    for (var s = 0; s < asteroids.length; s++){
+        asteroids[s].draw();
+        bitmoji.checkForStickGrab(asteroids[s]);
+        asteroids[s].y += 1;
+    }
+    
+// Score text
+    fill(194, 46, 247);
+    stroke(26, 255, 0);
+    rect(5, 12, 129, 40,20);
+    textSize(40);
+    fill(0, 0, 0);
+    textSize(30);
+    text("Score: " + score, 70, 15);
+    
+// movement of collector
+    frameRate(1000);
+    bitmoji.x += direction;
+        if(keyCode === 68){
+        direction = 1;
+        }
+        if(keyCode === 65){
+        direction = -1;
+        }
+    pauseButton.draw();
+    bitmoji.draw();
+};
+
+// pause screen of game
+var pauseScreen = function(){
+    currentScene = 2;
+    background(28, 20, 51);
+    fill(194, 46, 247);
+    stroke(26, 255, 0);
+    rect(40, 45, 319, 56,20);
+    textSize(40);
+    fill(0, 0, 0);
+    text("Asteroid Collector", 200, 50);
+    drawBitmoji(200, 300, 90);
+    resButton.draw();
+};
+
+// draw function for scenes
+draw = function(){
+    background(255, 255, 255);
+
+    if (currentScene === 0){
+        startScene();
+    }
+    if (currentScene === 1){
+        gameScene();
+    }
+    if (currentScene === 2){
+        pauseScreen();
+    }
+};
+
+// mouse clicked function for buttons
+mouseClicked = function(){
+    if (currentScene === 0){
+        strtButton.handleMouseClick();
+        }
+    if (currentScene === 1){
+        pauseButton.handleMouseClick();
+        }
+    if (currentScene === 2){
+        resButton.handleMouseClick();
+        }
+};
